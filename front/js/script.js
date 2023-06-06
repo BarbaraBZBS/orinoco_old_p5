@@ -35,7 +35,12 @@ function getTeddies() {
         } )
         .catch( function ( err ) {
             console.log( 'error :', err );
-            //alert( "Erreur" )
+            document.querySelector( 'div.presentation' ).textContent = "Oups... Il y a une erreur de serveur !";
+            document.querySelector( 'div.presentation' ).style.color = 'indianred';
+            document.querySelector( 'div.presentation' ).style.fontSize = '24px';
+            document.querySelector( 'div.presentation' ).style.fontWeight = 'bold';
+            document.querySelector( 'div.presentation' ).style.margin = '30px';
+            document.querySelector( 'div.presentation' ).style.paddingTop = '50px';
         } )
 }
 
@@ -48,15 +53,17 @@ function showProducts( product ) {
     const itemsSection = document.getElementById( 'items' );
     const showList = document.createElement( 'li' );
     const showAnchor = document.createElement( 'a' );
+    showAnchor.classList.add( 'anchor' );
     const showArticle = document.createElement( 'article' );
     const showImage = document.createElement( 'img' );
     const showHeading = document.createElement( 'h3' );
     showAnchor.setAttribute( 'href', './product.html?id=' + product._id );
     showImage.setAttribute( 'src', product.imageUrl );
-    showImage.alt = product.name;
+    showImage.alt = "Ours " + product.name;
     showHeading.innerText = product.name;
     showHeading.classList.add( 'productName' );
     showImage.classList.add( 'listImage' );
+    showImage.classList.add( 'scale' );
     showAnchor.appendChild( showArticle );
     showArticle.appendChild( showHeading );
     showArticle.appendChild( showImage );

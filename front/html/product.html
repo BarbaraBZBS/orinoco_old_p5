@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>Orinoco - Achat d'ours en peluche</title>
+    <meta charset="utf-8">
+    <meta name="description" content="e-commerce spécialisé en applications par thématiques">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;0,700;1,400;1,600&display=swap"
+        rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+
+<body>
+
+    <div id="main-wrapper">
+
+        <header class="top-banner">
+            <a href="./index.html">
+                <img class="logo-top" src="../images/orinocologo.png" alt="logo1">
+            </a>
+        </header>
+        <div class="navigation">
+            <nav>
+                <ul>
+                    <a href="./index.html">
+                        <li>Accueil</li>
+                    </a>
+                    <a href="./cart.html">
+                        <li>Panier</li>
+                    </a>
+                </ul>
+            </nav>
+        </div>
+
+        <main>
+            <div class="presentation">
+                <h1 class="title">Personnalisation</h1>
+                <h2 class="info">Choisissez l'apparence de votre ours</h2>
+            </div>
+            <section>
+                <article class="articleSection">
+                    <div class="product_img">
+                        <!--<img class="prodImg" src="" alt="">-->
+                    </div>
+
+                    <div class="product_content">
+
+                        <div class="product_content_name-price">
+                            <h1 id="title"><!--nom produit--></h1>
+                            <p>Prix : <span id="price"><!--59--></span></p>
+                        </div>
+
+                        <div class="product_content_description">
+                            <p id="description"><!--descr .....--></p>
+                        </div>
+
+                        <div class="product_content_settings">
+                            <div class="product_content_settings_option">
+                                <label for="option-selection">Choisissez une option de personnalisation :</label>
+                                <select name="option-selection" id="colors">
+                                    <option value=""> --Choisissez une couleur-- </option>
+                                    <!-- <option value="tan">tan</option>
+                                        <option value="blanc">blanc</option> -->
+                                </select>
+                            </div>
+
+                            <div class="product_content_settings_quantity">
+                                <label for="productQuantity">Quantité (stocks limités) :</label>
+                                <input type="number" name="productQuantity" min="1" max="10" value="0" id="quantity">
+                            </div>
+                        </div>
+
+                        <div class="product_content_addButton">
+                            <button id="addToCart">Ajouter au panier</button>
+                            <span id="totPrice"><!--=> 4545 €--></span>
+                        </div>
+                        <span id="msg"></span>
+                    </div>
+
+                </article>
+            </section>
+
+        </main>
+
+        <footer class="bot-banner">
+            <div class="bot-logo">
+                <img src="../images/orinocologofoot.png" alt="logo2">
+                <div>
+        </footer>
+
+    </div>
+    <script src="../js/product.js"></script>
+</body>
+
+</html>

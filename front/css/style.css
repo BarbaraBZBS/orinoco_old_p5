@@ -1,13 +1,20 @@
 * {
-  /* box-sizing: border-box; */
+  /*box-sizing: border-box;*/
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: -moz-none;
   -o-user-select: none;
   user-select: none;
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
+    height: 100vh; /* 100% view height */
+    width: 100vw; /* 100% view width */
+    max-width: 100vw;
+
 }
 
 button {
@@ -19,12 +26,14 @@ a {
     color: #8F5BFE;
 }
 
+main {
+    min-height: 90vh;
+}
+
 #main-wrapper {
     padding: 0;
     margin: 0;
-    width: 100%;
-    height: 100%;
-    max-width: 1920px;
+    max-width: 100vw; /*1920px;*/
 }
 
 .top-banner {
@@ -34,11 +43,20 @@ a {
     display: flex;
     justify-content: center;
     margin-bottom: 35px;
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.3);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
 }
 
 .logo-top {
     max-height: 140px;
     border-radius: 15px;
+}
+
+.presentation {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .presentation h1, .presentation h2, .pick {
@@ -83,6 +101,7 @@ b {
     text-align: center;
     width: 360px;
     list-style: none;
+    padding: 0;
 }
 
 .itemsList article {
@@ -95,7 +114,7 @@ b {
 }
 
 .listImage {
-    width:350px;
+    width:290px;
     display: block;
     margin: auto;
     margin-top: 10px;
@@ -115,9 +134,48 @@ b {
     max-height: 120px;
     border-radius: 12px;
 }
+.listImage:hover, .listImage:active , .listImage:focus  {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.listImage:active , .listImage:focus {
+  -webkit-animation: scale 530ms ease-in;
+  animation: scale 530ms ease-in;
+}
+
+@keyframes scale {
+  0% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+
+  }
+  50% {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+  100% {
+    -webkit-transform: scale(1.4);
+    transform: scale(1.4);
+  }
+}
+
+
 
 /* product page */
 
-
-
-
+@keyframes fadeout{
+    0%{opacity:1;visibility:visible;}
+    99%{opacity:0;}
+    100%{opacity:0;visibility: hidden;}
+}
+.fadeout {
+    animation:fadeout 1s linear;
+    visibility:hidden;
+}
+@keyframes fadein{
+    0%{opacity:0;visibility:visible;}
+    100%{opacity:1;}
+}
+.fadein {
+    animation:fadein 1s linear;
+}
