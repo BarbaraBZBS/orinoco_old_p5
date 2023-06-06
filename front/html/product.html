@@ -27,12 +27,8 @@
         <div class="navigation">
             <nav>
                 <ul>
-                    <a href="./index.html">
-                        <li>Accueil</li>
-                    </a>
-                    <a href="./cart.html">
-                        <li>Panier</li>
-                    </a>
+                    <li><a href="./index.html">Accueil</a></li>
+                    <li><a href="./cart.html">Panier</a></li>
                 </ul>
             </nav>
         </div>
@@ -61,7 +57,7 @@
 
                         <div class="product_content_settings">
                             <div class="product_content_settings_option">
-                                <label for="option-selection">Choisissez une option de personnalisation :</label>
+                                <label for="option-selection">Choisissez votre option : </label>
                                 <select name="option-selection" id="colors">
                                     <option value=""> --Choisissez une couleur-- </option>
                                     <!-- <option value="tan">tan</option>
@@ -70,14 +66,14 @@
                             </div>
 
                             <div class="product_content_settings_quantity">
-                                <label for="productQuantity">Quantité (stocks limités) :</label>
+                                <label for="productQuantity">Quantité (stocks limités) : </label>
                                 <input type="number" name="productQuantity" min="1" max="10" value="0" id="quantity">
                             </div>
                         </div>
 
                         <div class="product_content_addButton">
                             <button id="addToCart">Ajouter au panier</button>
-                            <span id="totPrice"><!--=> 4545 €--></span>
+                            <span id="totPrice"><!-- 4545 €--></span>
                         </div>
                         <span id="msg"></span>
                     </div>

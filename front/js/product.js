@@ -94,7 +94,7 @@ function showProduct( product ) {
         console.log( 'input', val );
         console.log( 'value quantity : ', val )
         const priceAll = priceToFormat.format( parseInt( priceFormat ) * val );
-        totalPrice.innerText = " -> " + ( priceAll );
+        totalPrice.innerText = ( priceAll );
         return val
     } )
 
