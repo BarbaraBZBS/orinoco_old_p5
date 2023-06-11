@@ -9,7 +9,6 @@ function findIdInPage() {
     const idInUrl = searchParams.get( 'id' );
     return idInUrl;
 };
-console.log( 'id in Url :', findIdInPage() );
 
 document.addEventListener( 'DOMContentLoaded', function () {
     load();
@@ -20,9 +19,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
  */
 async function load() {
     const product = await getProduct();
-    console.log( 'product :', product )
     showProduct( product )
-
 }
 
 /**
@@ -37,18 +34,12 @@ function getProduct() {
             }
         } )
         .then( function ( product ) {
-            console.log( 'product : ', product )
             return product
         } )
         .catch( function ( err ) {
             console.log( 'error :', err );
-            document.querySelector( 'main' ).textContent = "Oups... Il y a une erreur de serveur !";
-            document.querySelector( 'main' ).style.color = 'indianred';
-            document.querySelector( 'main' ).style.fontSize = '24px';
-            document.querySelector( 'main' ).style.fontWeight = 'bold';
-            document.querySelector( 'main' ).style.margin = '30px';
-            document.querySelector( 'main' ).style.paddingTop = '50px';
-            document.querySelector( 'main' ).style.textAlign = "center";
+            document.getElementById( 'product_main_section' ).classList.add( 'serverError' );
+            document.getElementById( 'product_main_section' ).textContent = "Oups... Il y a une erreur de serveur !";
         } )
 }
 
@@ -91,13 +82,10 @@ function showProduct( product ) {
 
     document.getElementById( 'quantity' ).addEventListener( 'input', function ( event ) {
         const val = event.target.value;
-        console.log( 'input', val );
-        console.log( 'value quantity : ', val )
         const priceAll = priceToFormat.format( parseInt( priceFormat ) * val );
         totalPrice.innerText = ( priceAll );
         return val
     } )
-
 }
 
 /**
@@ -106,7 +94,6 @@ function showProduct( product ) {
 function fillCart() {
     let selectedQuantity = document.getElementById( 'quantity' ).value;
     let selectedColor = document.getElementById( 'colors' ).value;
-    console.log( 'quantity : ', selectedQuantity, 'color : ', selectedColor );
     const cart = [ {
         productId: findIdInPage(),
         amount: selectedQuantity,
@@ -119,7 +106,6 @@ function fillCart() {
 
     if ( !localStorage.getItem( 'cart' ) ) {
         localStorage.setItem( 'cart', JSON.stringify( cart ) );
-        console.log( selectedColor, selectedQuantity );
         document.getElementById( 'msg' ).textContent = "Article ajouté au panier !";
         document.getElementById( 'msg' ).style.color = 'green';
         setTimeout( () => {
@@ -127,13 +113,9 @@ function fillCart() {
         }, 2000 )
         document.getElementById( 'msg' ).classList.remove( 'fadeout' )
         //alert( "Article ajouté au panier !" );
-        console.log( 'empty cart added new item' );
     }
-
     else {
         if ( checkSameCartItem() == false ) {
-            console.log( 'not same cart item' );
-            console.log( selectedColor, selectedQuantity );
             addItemToCart();
             document.getElementById( 'msg' ).textContent = "Article ajouté au panier !";
             document.getElementById( 'msg' ).style.color = 'green';
@@ -144,8 +126,6 @@ function fillCart() {
             //alert( "Article ajouté au panier !" );
         }
         else {
-            console.log( 'same cart item' );
-            console.log( selectedColor, selectedQuantity );
             updateAmount();
         }
     }
@@ -160,7 +140,6 @@ function checkSameCartItem() {
     let selectedColor = document.getElementById( 'colors' ).value;
     let cartToCheck = JSON.parse( localStorage.getItem( 'cart' ) );
     for ( let item of cartToCheck ) {
-        console.log( 'cart item :', item );
         if ( item.productId == findIdInPage() && item.color == selectedColor ) {
             checker = true;
         }
@@ -174,11 +153,9 @@ function checkSameCartItem() {
 function addItemToCart() {
     let selectedQuantity = document.getElementById( 'quantity' ).value;
     let selectedColor = document.getElementById( 'colors' ).value;
-    console.log( 'quantity : ', selectedQuantity, 'color : ', selectedColor );
     let oldCart = JSON.parse( localStorage.getItem( 'cart' ) );
     //making sure parsed cart is an array
     const array = Array.from( oldCart );
-    console.log( 'array? :', array );
     array.push(
         {
             productId: findIdInPage(),
@@ -197,26 +174,23 @@ function addItemToCart() {
  * updating quantity if same product with same option has already been added to cart
  */
 function updateAmount() {
-
     let selectedQuantity = document.getElementById( 'quantity' ).value;
     let selectedColor = document.getElementById( 'colors' ).value;
     let cartToUpdate = JSON.parse( localStorage.getItem( 'cart' ) );
     for ( let item of cartToUpdate ) {
         if ( item.productId == findIdInPage() && item.color == selectedColor && ( parseInt( item.amount ) + parseInt( selectedQuantity ) > 10 ) ) {
-            console.log( 'quantity error : ', item.amount );
             document.getElementById( 'msg' ).textContent = "Toutes nos excuses, la quantité maximum est limitée à 10 ! Vous avez déjà "
                 + item.amount + " peluches " + item.name + " de cette couleur dans votre panier.";
             document.getElementById( 'msg' ).style.color = 'red';
             setTimeout( () => {
                 document.getElementById( 'msg' ).classList.add( 'fadeout' )
-            }, 4000 )
+            }, 3000 )
             document.getElementById( 'msg' ).classList.remove( 'fadeout' )
             //alert( "Toutes nos excuses, les stocks sont limités et vous ne pouvez acheter plus de 10 articles d'un même ours !
             // Vous avez déjà " + item.amount + " peluches " + item.name + " de cette couleur dans votre panier." );
         }
         else if ( item.productId == findIdInPage() && item.color == selectedColor && ( parseInt( item.amount ) + parseInt( selectedQuantity ) <= 10 ) ) {
             item.amount = parseInt( item.amount ) + parseInt( selectedQuantity );
-            console.log( 'amount : ', item.amount );
             document.getElementById( 'msg' ).textContent = "La quantité pour " +
                 document.getElementById( 'title' ).innerText + " en " +
                 document.getElementById( 'colors' ).value + " a bien été augmentée !";
@@ -250,18 +224,16 @@ function checkInputFill() {
         return false;
     }
     else if ( document.getElementById( 'colors' ).value == "" ) {
+        document.getElementById( 'msg' ).classList.add( 'errMsg' );
         document.getElementById( 'msg' ).textContent = "Choisissez la couleur !";
-        document.getElementById( 'msg' ).style.color = 'red';
         setTimeout( () => {
             document.getElementById( 'msg' ).classList.add( 'fadeout' )
         }, 2000 )
         document.getElementById( 'msg' ).classList.remove( 'fadeout' )
-
         //alert( "Choisissez la couleur !" );
         return false;
     }
     else {
-        //console.log('ok');
         return true;
     }
 };
@@ -272,6 +244,5 @@ function checkInputFill() {
 document.getElementById( 'addToCart' ).addEventListener( 'click', function () {
     if ( checkInputFill() ) {
         fillCart();
-        //console.log( 'Storage :', localStorage );
     }
 } );

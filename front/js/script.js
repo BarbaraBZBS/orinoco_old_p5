@@ -12,14 +12,12 @@ async function load() {
     const products = await getTeddies();
     for ( let product of products ) {
         showProducts( product )
-
     }
-
 }
 
 /**
  * Calling API to get products info
- * @returns {products} API product
+ * @returns {products} API products
  */
 function getTeddies() {
     //getting data after checking validity response then catching error
@@ -35,12 +33,8 @@ function getTeddies() {
         } )
         .catch( function ( err ) {
             console.log( 'error :', err );
+            document.querySelector( 'div.presentation' ).classList.add( 'serverError' );
             document.querySelector( 'div.presentation' ).textContent = "Oups... Il y a une erreur de serveur !";
-            document.querySelector( 'div.presentation' ).style.color = 'indianred';
-            document.querySelector( 'div.presentation' ).style.fontSize = '24px';
-            document.querySelector( 'div.presentation' ).style.fontWeight = 'bold';
-            document.querySelector( 'div.presentation' ).style.margin = '30px';
-            document.querySelector( 'div.presentation' ).style.paddingTop = '50px';
         } )
 }
 

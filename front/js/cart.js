@@ -1,14 +1,25 @@
+/**
+ * checking local storage condition
+ * @returns {boolean} localStorage condition
+ */
 ( function checkLocalStorage() {
     if ( !localStorage.getItem( 'cart' ) ) {
         console.log( 'empty cart' );
+        document.getElementById( 'cart_main_section' ).classList.add( 'cartEmpty' );
         document.getElementById( 'cart_main_section' ).textContent = "Votre panier est vide, sélectionnez un ours depuis la page d'accueil et ajoutez le à votre panier.";
+        return false
     }
     else {
         console.log( 'local storage loaded', localStorage );
         load();
+        return true
     }
 } )();
 
+/**
+ * calling API for missing info
+ * @returns {products} API products
+ */
 async function getProducts() {
     return fetch( "http://localhost:3000/api/teddies" )
         .then( function ( res ) {
@@ -17,32 +28,32 @@ async function getProducts() {
             }
         } )
         .then( function ( products ) {
-            console.log( 'products : ', products )
             return products;
         } )
         .catch( function ( err ) {
             console.log( 'err : ', err );
+            document.getElementById( 'cart_main_section' ).classList.add( 'serverError' );
             document.getElementById( 'cart_main_section' ).textContent = "Oups... Il y a une erreur de serveur !";
-            document.getElementById( 'cart_main_section' ).style.color = 'indianred';
-            document.getElementById( 'cart_main_section' ).style.fontWeight = 'bold';
-            document.getElementById( 'cart_main_section' ).style.fontSize = '24px';
-            document.getElementById( 'cart_main_section' ).style.margin = '30px';
-            document.getElementById( 'cart_main_section' ).style.paddingTop = '50px';
         } )
 };
 
+/**
+ * retrieving localStorage items
+ * @returns {cartItems} localStorage items
+ */
 async function getCartItems() {
-
     let cartItems = JSON.parse( localStorage.getItem( 'cart' ) );
     if ( cartItems != null ) {
         return cartItems;
     }
     else {
-        console.log( 'no cart' );
-        document.getElementById( 'empty_cart_msg' ).textContent = "Votre panier est vide, sélectionnez un ours depuis la page d'accueil et ajoutez le à votre panier.";
+        console.log( 'nothing in cart' );
     }
 };
 
+/**
+ * loading cart items to display
+ */
 async function load() {
     const cartItems = await getCartItems();
     for ( let cartItem of cartItems ) {
@@ -50,19 +61,23 @@ async function load() {
     }
 };
 
+/**
+ * display DOM/HTML
+ */
 async function showCart() {
     const products = await getProducts();
     const thisCart = await getCartItems();
-
-    if ( thisCart.length > 0 ) {
-
+    if ( !thisCart ) {
+        document.getElementById( 'cart_main_section' ).classList.add( 'cartEmpty' );
+        document.getElementById( 'cart_main_section' ).textContent = "Votre panier est vide, sélectionnez un ours depuis la page d'accueil et ajoutez le à votre panier.";
+    }
+    else if ( thisCart.length > 0 ) {
         let htmltxt = "";
         let priceP;
         for ( const el of thisCart ) {
             for ( let product of products ) {
                 if ( el.productId === product._id ) {
                     priceP = product.price;
-                    //console.log( 'this item price : ', priceP )
                 }
             };
             htmltxt += `<article class="cart_item" data-id="${ el.productId }" data-color="${ el.color }">
@@ -81,9 +96,11 @@ async function showCart() {
                                     <p>Qté : </p>
                                     <input class="itemQuantity" name="itemQuantity" type="number" min="1" max="10"
                                         value="${ el.amount }">
+                                    <span class="errorQuantity"></span>
                                 </div>
                                 <div class="cart_item_content_settings_delete">
                                     <button class="delete_item">Supprimer du panier</button>
+                                    <span class="lastDeleted"></span>
                                 </div>
                             </div>
                         </div>
@@ -97,6 +114,9 @@ async function showCart() {
     }
 };
 
+/**
+ * displaying cart global quantity
+ */
 async function showGlobalQuantity() {
     const thisCart = await getCartItems();
     let quantity = 0;
@@ -106,14 +126,15 @@ async function showGlobalQuantity() {
     document.getElementById( 'totalQuantity' ).textContent = quantity;
 };
 
+/**
+ * displaying cart global price
+ */
 async function showGlobalPrice() {
     const thisCart = await getCartItems();
     let total = 0;
     let idx = 0;
     const totalPrices = document.querySelectorAll( '.item_tot_price' );
-    for ( let el of thisCart ) {
-        console.log( el.amount );
-        console.log( 'idx : ', idx );
+    for ( const el of thisCart ) {
         const tot = totalPrices[ idx ].innerText;
         total += parseInt( tot );
         idx++;
@@ -121,51 +142,100 @@ async function showGlobalPrice() {
     document.getElementById( 'totalPrice' ).textContent = total;
 };
 
-function updateItemAmount() {
+/**
+ * cart item amount modifier
+ */
+async function updateItemAmount() {
     let itemAmountInput = document.getElementsByClassName( 'itemQuantity' );
-    console.log( 'quant : ', itemAmountInput );
+    let cartItems = await getCartItems();
     let cartItemId;
     let cartItemAmount;
     let cartItemColor;
     if ( itemAmountInput.length > 0 ) {
         for ( const amount of itemAmountInput ) {
-            console.log( 'amount btn : ', amount )
             amount.addEventListener( 'change', function ( event ) {
-                console.log( 'new amount : ', event.target.value );
                 cartItemId = event.target.closest( 'article' ).dataset.id;
                 cartItemColor = event.target.closest( 'article' ).dataset.color;
                 cartItemAmount = amount.value;
-                console.log( cartItemId );
-                console.log( cartItemColor );
-                console.log( cartItemAmount );
                 if ( amount.value == 0 || amount.value < 0 || amount.value == "" || amount.value > 10 ) {
-                    alert( "Choisissez une nouvelle quantité comprise entre 1 et 10 !" );
-                    showCart()
+                    itemError = event.target.nextElementSibling
+                    itemError.classList.add( 'errMsg' );
+                    itemError.textContent = "Choisissez une nouvelle quantité comprise entre 1 et 10 !";
+                    //alert( "Choisissez une nouvelle quantité comprise entre 1 et 10 !" );
                 }
                 else {
-                    let cartItems = JSON.parse( localStorage.getItem( 'cart' ) );
                     for ( item of cartItems ) {
                         if ( item.productId == cartItemId && item.color == cartItemColor ) {
                             item.amount = cartItemAmount
-                            console.log( 'new amount : ', item.amount );
-                            console.log( 'cart : ', cartItems );
                         }
                     }
                     localStorage.setItem( 'cart', JSON.stringify( cartItems ) );
                     showCart();
-                    showGlobalQuantity();
-                    showGlobalPrice();
                 }
             } )
         }
-    }
+    };
 };
 
-function removeItem() {
+/**
+ * single cart item eraser
+ */
+async function removeItem() {
     let deleteBtn = document.getElementsByClassName( 'delete_item' );
-    console.log( 'delete buttons : ', deleteBtn )
-
-    for ( const btn of deleteBtn ) {
-        console.log( 'delete button : ', btn )
-    }
+    let cartItems = await getCartItems();
+    let cartItemId;
+    let cartItemColor;
+    let idx = 0;
+    if ( deleteBtn.length > 0 ) {
+        for ( const btn of deleteBtn ) {
+            btn.addEventListener( 'click', function ( event ) {
+                cartItemId = event.target.closest( 'article' ).dataset.id;
+                cartItemColor = event.target.closest( 'article' ).dataset.color;
+                for ( const item of cartItems ) {
+                    if ( item.productId == cartItemId && item.color == cartItemColor ) {
+                        cartItems.splice( idx, 1 );
+                        console.log( 'removed' )
+                    }
+                    idx++
+                }
+                localStorage.setItem( 'cart', JSON.stringify( cartItems ) );
+                event.target.closest( 'article' ).remove();
+                showCart();
+                if ( deleteBtn.length == 0 ) {
+                    console.log( 'last deleted' );
+                    document.getElementById( 'cart_main_section' ).classList.add( 'cartEmpty', 'errMsg' );
+                    document.getElementById( 'cart_main_section' ).textContent = "Vous avez supprimé le dernier article de votre panier.";
+                    setTimeout( () => {
+                        document.getElementById( 'cart_main_section' ).classList.add( 'fadeout' );
+                    }, 3500 )
+                    setTimeout( () => {
+                        document.getElementById( 'cart_main_section' ).classList.remove( 'fadeout' );
+                        document.getElementById( 'cart_main_section' ).classList.remove( 'errMsg' );
+                        localStorage.clear();
+                        showCart();
+                    }, 3501 )
+                    //alert( "Vous avez supprimer le dernier article de votre panier." );
+                }
+            } );
+        };
+    };
 };
+
+/**
+ * formatting price for display and computation
+ * @param {Object} price to be formatted
+ */
+function formatPrice( price ) {
+    //modify price for format
+    const newPrice = parseInt( price ) / 100;
+    // Format the price to € using the locale, style, and currency.
+    let priceToFormat = new Intl.NumberFormat( 'fr-FR', {
+        style: 'currency',
+        currency: 'EUR'
+    } );
+    const priceFormat = priceToFormat.format( newPrice )
+    return priceFormat
+};
+
+
+////------------------FORM-TO-FILL-------------------//// 
