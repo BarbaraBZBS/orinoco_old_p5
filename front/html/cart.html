@@ -33,17 +33,91 @@
             </nav>
         </div>
 
-        <main>
+        <main id="cart_main_section">
 
-            <div class="">
-                <h1 class=""></h1>
-                <h2 class="">
-                </h2>
-                <p class="">
+            <div class="cart_info">
+                <h1 class="cart_info_title">Panier</h1>
+                <p> Vérifiez votre panier puis remplissez le formulaire
+                    pour finaliser votre commande.
                 </p>
             </div>
-            <article class="">
-            </article>
+
+            <section class="cart">
+                <section id="cart_items">
+                    <!--
+
+                    <article class="cart_item">
+
+                        <div class="cart_img">
+                            <img src="http..." alt="altnm">
+                        </div>
+
+                        <div class="cart_item_content">
+
+                            <div class="cart_item_content_info">
+                                <h2 class="item_name">item name</h2>
+                                <p class="item_color">item color</p>
+                                <p class="item_tot_price"> item price</p>
+                                <p class="item_sing_price">(prix unitaire : ${ priceP }) €</p>
+                            </div>
+
+                            <div class="cart_item_content_settings">
+
+                                <div class="cart_item_content_settings_quantity">
+                                    <p>Qté : </p>
+                                    <input class="itemQuantity" name="itemQuantity" type="number" min="1" max="10"
+                                        value="6">
+                                </div>
+                                <div class="cart_item_content_settings_delete">
+                                    <button class="delete_item">Supprimer du panier</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </article>
+                -->
+                </section>
+                <div class="cart_price">
+                    <p>Prix du panier pour <span id="totalQuantity"><!--5--></span> produits : <span
+                            id="totalPrice"><!--354--></span> €</p>
+                </div>
+                <div class="cart_form">
+                    <p>Vos informations : </p>
+                    <form method="get" class="cart_form_fill">
+                        <div class="cart_form_fill_field">
+                            <label for="lastName">Nom: </label>
+                            <input type="text" name="lastName" id="lastName" required>
+                            <p id="lastNameErrorMsg"><!-- ci est un message d'erreur --></p>
+                        </div>
+                        <div class="cart_form_fill_field">
+                            <label for="firstName">Prénom: </label>
+                            <input type="text" name="firstName" id="firstName" required>
+                            <p id="firstNameErrorMsg"><!-- ci est un message d'erreur --></p>
+
+                        </div>
+                        <div class="cart_form_fill_field">
+                            <label for="address">Adresse: </label>
+                            <input type="text" name="address" id="address" required>
+                            <p id="addressErrorMsg"></p>
+                        </div>
+                        <div class="cart_form_fill_field">
+                            <label for="city">Ville: </label>
+                            <input type="text" name="city" id="city" required>
+                            <p id="cityErrorMsg"></p>
+                        </div>
+                        <div class="cart_form_fill_field">
+                            <label for="email">Email: </label>
+                            <input type="email" name="email" id="email" required>
+                            <p id="emailErrorMsg"></p>
+                        </div>
+                        <div class="cart_form_fill_submit">
+                            <input type="submit" value="Commander !" id="order">
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+
         </main>
 
         <footer class="bot-banner">
@@ -53,7 +127,7 @@
         </footer>
 
     </div>
-    <script src="../js/script.js"></script>
+    <script src="../js/cart.js"></script>
 </body>
 
 </html>
