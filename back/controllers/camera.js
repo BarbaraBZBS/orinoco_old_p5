@@ -77,7 +77,7 @@ exports.orderCameras = ( req, res, next ) => {
     }
     Promise.all( queries ).then(
         ( cameras ) => {
-            const orderId = v1();
+            const orderId = uuidv1();
             return res.status( 201 ).json( {
                 contact: req.body.contact,
                 products: cameras,

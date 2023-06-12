@@ -77,16 +77,17 @@ exports.orderTeddies = ( req, res, next ) => {
     }
     Promise.all( queries ).then(
         ( teddies ) => {
-            const orderId = v1();
+            const orderId = uuidv1();
             return res.status( 201 ).json( {
                 contact: req.body.contact,
                 products: teddies,
                 orderId: orderId
             } )
         }
-    ).catch(
-        ( error ) => {
-            return res.status( 500 ).json( new Error( error ) );
-        }
-    );
+    )
+        .catch(
+            ( error ) => {
+                return res.status( 500 ).json( new Error( error ) );
+            }
+        );
 };

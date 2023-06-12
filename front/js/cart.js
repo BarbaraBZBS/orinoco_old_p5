@@ -5,6 +5,7 @@
 ( function checkLocalStorage() {
     if ( !localStorage.getItem( 'cart' ) ) {
         console.log( 'empty cart' );
+        localStorage.clear();
         document.getElementById( 'cart_main_section' ).classList.add( 'cartEmpty' );
         document.getElementById( 'cart_main_section' ).textContent = "Votre panier est vide, sélectionnez un ours depuis la page d'accueil et ajoutez le à votre panier.";
         return false
@@ -12,6 +13,11 @@
     else {
         console.log( 'local storage loaded', localStorage );
         load();
+        firstNameForm();
+        lastNameForm();
+        addressForm();
+        cityForm();
+        emailForm();
         return true
     }
 } )();
@@ -74,11 +80,16 @@ async function showCart() {
     else if ( thisCart.length > 0 ) {
         let htmltxt = "";
         let priceP;
+        let formattedPrice;
+        let formattedTotal;
         for ( const el of thisCart ) {
             for ( let product of products ) {
                 if ( el.productId === product._id ) {
                     priceP = product.price;
+                    formattedPrice = formatPrice( product.price )
+                    formattedTotal = formatPrice( product.price * el.amount )
                 }
+                //console.log( 'price? : ', formattedPrice )
             };
             htmltxt += `<article class="cart_item" data-id="${ el.productId }" data-color="${ el.color }">
                         <div class="cart_img">
@@ -88,19 +99,18 @@ async function showCart() {
                             <div class="cart_item_content_info">
                                 <h2 class="item_name">${ el.name }</h2>
                                 <p class="item_color">${ el.color }</p>
-                                <p class="item_tot_price">${ priceP * el.amount } €</p>
-                                <p class="item_sing_price">(prix unitaire : ${ priceP }) €</p>
+                                <p class="item_tot_price">${ formattedTotal }</p>
+                                <p class="item_sing_price">(prix unitaire : ${ formattedPrice })</p>
                             </div>
                             <div class="cart_item_content_settings">
                                 <div class="cart_item_content_settings_quantity">
                                     <p>Qté : </p>
                                     <input class="itemQuantity" name="itemQuantity" type="number" min="1" max="10"
                                         value="${ el.amount }">
-                                    <span class="errorQuantity"></span>
+                                    <p class="errorQuantity"></p>
                                 </div>
                                 <div class="cart_item_content_settings_delete">
                                     <button class="delete_item">Supprimer du panier</button>
-                                    <span class="lastDeleted"></span>
                                 </div>
                             </div>
                         </div>
@@ -139,7 +149,13 @@ async function showGlobalPrice() {
         total += parseInt( tot );
         idx++;
     };
-    document.getElementById( 'totalPrice' ).textContent = total;
+    let formatTotal = new Intl.NumberFormat( 'fr-FR', {
+        style: 'currency',
+        currency: 'EUR'
+    } );
+    const globalPrice = formatTotal.format( total )
+
+    document.getElementById( 'totalPrice' ).textContent = globalPrice;
 };
 
 /**
@@ -169,7 +185,7 @@ async function updateItemAmount() {
                             item.amount = cartItemAmount
                         }
                     }
-                    localStorage.setItem( 'cart', JSON.stringify( cartItems ) );
+                    localStorage.setItem( "cart", JSON.stringify( cartItems ) );
                     showCart();
                 }
             } )
@@ -239,3 +255,198 @@ function formatPrice( price ) {
 
 
 ////------------------FORM-TO-FILL-------------------//// 
+
+
+/**
+ * firstName field validation
+*/
+function firstNameForm() {
+    const firstName = document.getElementById( 'firstName' );
+    firstName.addEventListener( 'change', function ( event ) {
+        if ( /^[A-Z][A-Za-z -ïîëéèùûêâôöçäü]{1,45}$/.test( event.target.value ) ) {
+            document.getElementById( 'firstNameErrorMsg' ).textContent = "";
+            firstName.style.border = 'solid medium green';
+            document.getElementById( 'order' ).removeAttribute( 'disabled' );
+        }
+        else if ( event.target.value == '' ) {
+            document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
+        }
+        else {
+            document.getElementById( 'firstNameErrorMsg' ).textContent = "Veuillez renseigner votre prénom... (p. ex. Gwen)";
+            firstName.style.border = 'solid thin red';
+            document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
+        }
+    } )
+};
+
+/**
+ * lastName field validation
+ */
+function lastNameForm() {
+    const lastName = document.getElementById( 'lastName' );
+    lastName.addEventListener( 'change', function ( event ) {
+        if ( /^[A-Z][A-Za-z -ïîëéèùûêâôöçäü]{1,45}$/.test( event.target.value ) ) {
+            document.getElementById( 'lastNameErrorMsg' ).textContent = "";
+            lastName.style.border = 'solid medium green';
+            document.getElementById( 'order' ).removeAttribute( 'disabled' );
+        }
+        else if ( event.target.value == "" ) {
+            document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
+        }
+        else {
+            document.getElementById( 'lastNameErrorMsg' ).textContent = "Veuillez renseigner votre nom... (p. ex. Dupont)";
+            lastName.style.border = 'solid thin red';
+            document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
+        }
+    } )
+};
+
+/**
+ * address field validation
+ */
+function addressForm() {
+    let address = document.getElementById( 'address' );
+    address.addEventListener( 'change', function ( event ) {
+        if ( /^[a-zA-Z0-9\s,'-.ç _àçïîëéêèûâùôöäü]*$/.test( event.target.value ) ) {
+            document.getElementById( 'addressErrorMsg' ).textContent = "";
+            address.style.border = 'solid medium green';
+            document.getElementById( 'order' ).removeAttribute( 'disabled' );
+        }
+        else if ( event.target.value == "" ) {
+            document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
+        }
+        else {
+            document.getElementById( 'addressErrorMsg' ).textContent = "Veuillez renseigner votre adresse... (p. ex. 10 rue des prés)";
+            address.style.border = 'solid thin red';
+            document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
+        }
+    } )
+};
+
+/**
+ * city field validation
+ */
+function cityForm() {
+    let city = document.getElementById( 'city' );
+    city.addEventListener( 'change', function ( event ) {
+        if ( /^[A-Z][A-Za-z\s'-. _àçïîëéêèûâùôöçäü]*$/.test( event.target.value ) ) {
+            document.getElementById( 'cityErrorMsg' ).textContent = "";
+            city.style.border = 'solid medium green';
+            document.getElementById( 'order' ).removeAttribute( 'disabled' );
+        }
+        else if ( event.target.value == "" ) {
+            document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
+        }
+        else {
+            document.getElementById( 'cityErrorMsg' ).textContent = "Veuillez renseigner votre ville... (p. ex. Grenoble)";
+            city.style.border = 'solid thin red';
+            document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
+
+        }
+    } )
+};
+
+/**
+ * email field validation
+ */
+function emailForm() {
+    let email = document.getElementById( 'email' );
+    email.addEventListener( 'change', function ( event ) {
+        if ( /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test( event.target.value ) ) {
+            document.getElementById( 'emailErrorMsg' ).textContent = "";
+            email.style.border = 'solid medium green';
+            document.getElementById( 'order' ).removeAttribute( 'disabled' );
+        }
+        else if ( event.target.value == "" ) {
+            document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
+        }
+        else {
+            document.getElementById( 'emailErrorMsg' ).textContent = "Veuillez renseigner une adresse email valide... (p. ex. j.vincent@google.org)";
+            email.style.border = 'solid thin red';
+            document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
+        }
+    } )
+};
+
+/**
+ * sending form to server
+ * @param {object} event submit button event listener
+ */
+function sendFormToServer( event ) {
+    let form = document.querySelector( '.cart_form_fill' );
+    event.preventDefault();
+    console.log( 'form :', form );
+    let valid = form.checkValidity();
+    console.log( 'validity', valid );
+    if ( valid == true ) {
+        console.log( 'validity', valid );
+        const formOrder = requestForm();
+        console.log( 'order', formOrder );
+        fetch( "http://localhost:3000/api/teddies/order",
+            {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify( formOrder )
+            } )
+            .then( function ( res ) {
+                if ( res.ok ) {
+                    console.log( 'res', res )
+                    return res.json();
+                }
+            } )
+            .then( function ( formOrder ) {
+                const priceT = document.getElementById( 'totalPrice' ).innerText;
+                const price = priceT.replace( /[^\w]/g, "" ) / 100;
+                alert( "Merci pour votre commande !" );
+                // console.log( 'order products : ', formOrder.products )
+                // console.log( 'success :', formOrder );
+                location.href = 'confirmation.html?id=' + formOrder.orderId + '&am=' + price;
+            } )
+            .catch( function ( err ) {
+                console.log( "an error occurred", err );
+                alert( "erreur" )
+            } )
+    }
+};
+
+/**
+ * building post request element
+ * @returns {object} formOrder built post request
+ */
+function requestForm() {
+    const formOrder = {
+        contact: {
+            firstName: document.getElementById( 'firstName' ).value,
+            lastName: document.getElementById( 'lastName' ).value,
+            address: document.getElementById( 'address' ).value,
+            city: document.getElementById( 'city' ).value,
+            email: document.getElementById( 'email' ).value
+        },
+        products: requestStrings(),
+    };
+    return formOrder;
+};
+
+/**
+ * retrieving product strings needed while building post element
+ * @returns {array} products
+ */
+function requestStrings() {
+    let cartItems = JSON.parse( localStorage.getItem( "cart" ) );
+    const getStrings = [];
+    for ( let item of cartItems ) {
+        const id = item.productId;
+        console.log( 'product string : ', id );
+        getStrings.push( id );
+        //console.log( 'products ids Array : ', getStrings );
+    };
+    return getStrings;
+};
+
+/**
+ * form event listener
+ */
+document.querySelector( '.cart_form_fill' ).addEventListener( 'submit', sendFormToServer );

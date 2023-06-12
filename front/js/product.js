@@ -45,7 +45,8 @@ function getProduct() {
 
 /**
  * displaying page html content
- * @param {object} product API retrieved array element
+ * @param {Object} product API retrieved array element
+ * @returns {val} event target value for quantity and price computation
  */
 function showProduct( product ) {
     const productImgSection = document.querySelector( 'div.product_img' );
@@ -89,7 +90,7 @@ function showProduct( product ) {
 }
 
 /**
- * filling localstorage for the first time with product details
+ * filling localStorage with product details
  */
 function fillCart() {
     let selectedQuantity = document.getElementById( 'quantity' ).value;
@@ -138,7 +139,7 @@ function fillCart() {
 function checkSameCartItem() {
     let checker = false;
     let selectedColor = document.getElementById( 'colors' ).value;
-    let cartToCheck = JSON.parse( localStorage.getItem( 'cart' ) );
+    let cartToCheck = JSON.parse( localStorage.getItem( "cart" ) );
     for ( let item of cartToCheck ) {
         if ( item.productId == findIdInPage() && item.color == selectedColor ) {
             checker = true;
@@ -153,7 +154,7 @@ function checkSameCartItem() {
 function addItemToCart() {
     let selectedQuantity = document.getElementById( 'quantity' ).value;
     let selectedColor = document.getElementById( 'colors' ).value;
-    let oldCart = JSON.parse( localStorage.getItem( 'cart' ) );
+    let oldCart = JSON.parse( localStorage.getItem( "cart" ) );
     //making sure parsed cart is an array
     const array = Array.from( oldCart );
     array.push(
@@ -167,7 +168,7 @@ function addItemToCart() {
             alt: document.querySelector( '.product_img img' ).alt
         },
     );
-    localStorage.setItem( 'cart', JSON.stringify( array ) );
+    localStorage.setItem( "cart", JSON.stringify( array ) );
 };
 
 /**

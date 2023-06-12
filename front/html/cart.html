@@ -2,7 +2,7 @@
 <html lang="fr">
 
 <head>
-    <title>Orinoco</title>
+    <title>Orinoco - Mon panier</title>
     <meta charset="utf-8">
     <meta name="description" content="e-commerce spécialisé en applications par thématiques">
     <link rel="icon" type="image/x-icon" href="../favicon.ico" />
@@ -45,55 +45,48 @@
             <section class="cart">
                 <section id="cart_items">
                     <!--
-
-                    <article class="cart_item">
-
+                    <article class="cart_item" data-id="${ el.productId }" data-color="${ el.color }">
                         <div class="cart_img">
-                            <img src="http..." alt="altnm">
+                            <img src="${ el.image }" alt="${ el.alt }">
                         </div>
-
                         <div class="cart_item_content">
-
                             <div class="cart_item_content_info">
-                                <h2 class="item_name">item name</h2>
-                                <p class="item_color">item color</p>
-                                <p class="item_tot_price"> item price</p>
-                                <p class="item_sing_price">(prix unitaire : ${ priceP }) €</p>
+                                <h2 class="item_name">${ el.name }</h2>
+                                <p class="item_color">${ el.color }</p>
+                                <p class="item_tot_price">${ formattedTotal }</p>
+                                <p class="item_sing_price">(prix unitaire : ${ formattedPrice })</p>
                             </div>
-
                             <div class="cart_item_content_settings">
-
                                 <div class="cart_item_content_settings_quantity">
                                     <p>Qté : </p>
                                     <input class="itemQuantity" name="itemQuantity" type="number" min="1" max="10"
-                                        value="6">
+                                        value="${ el.amount }">
+                                    <p class="errorQuantity"></p>
                                 </div>
                                 <div class="cart_item_content_settings_delete">
                                     <button class="delete_item">Supprimer du panier</button>
                                 </div>
-
                             </div>
                         </div>
                     </article>
-                -->
+                    -->
                 </section>
                 <div class="cart_price">
                     <p>Prix du panier pour <span id="totalQuantity"><!--5--></span> produits : <span
-                            id="totalPrice"><!--354--></span> €</p>
+                            id="totalPrice"><!--354--></span></p>
                 </div>
                 <div class="cart_form">
-                    <p>Vos informations : </p>
+                    <h3>Vos informations : </h3>
                     <form method="get" class="cart_form_fill">
-                        <div class="cart_form_fill_field">
-                            <label for="lastName">Nom: </label>
-                            <input type="text" name="lastName" id="lastName" required>
-                            <p id="lastNameErrorMsg"><!-- ci est un message d'erreur --></p>
-                        </div>
                         <div class="cart_form_fill_field">
                             <label for="firstName">Prénom: </label>
                             <input type="text" name="firstName" id="firstName" required>
                             <p id="firstNameErrorMsg"><!-- ci est un message d'erreur --></p>
-
+                        </div>
+                        <div class="cart_form_fill_field">
+                            <label for="lastName">Nom: </label>
+                            <input type="text" name="lastName" id="lastName" required>
+                            <p id="lastNameErrorMsg"><!-- ci est un message d'erreur --></p>
                         </div>
                         <div class="cart_form_fill_field">
                             <label for="address">Adresse: </label>
@@ -116,7 +109,6 @@
                     </form>
                 </div>
             </section>
-
 
         </main>
 

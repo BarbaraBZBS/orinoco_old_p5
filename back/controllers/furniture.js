@@ -77,7 +77,7 @@ exports.orderFurniture = ( req, res, next ) => {
     }
     Promise.all( queries ).then(
         ( furniture ) => {
-            const orderId = v1();
+            const orderId = uuidv1();
             return res.status( 201 ).json( {
                 contact: req.body.contact,
                 products: furniture,
