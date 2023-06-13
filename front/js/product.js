@@ -73,7 +73,6 @@ function showProduct( product ) {
     const colors = Object.values( product.colors );
 
     for ( let color of colors ) {
-        console.log( 'color : ', color );
         const optionSelect = document.createElement( 'option' );
         optionSelect.value = color;
         optionSelect.text = color;

@@ -11,7 +11,7 @@
         return false
     }
     else {
-        console.log( 'local storage loaded', localStorage );
+        //console.log( 'local storage loaded', localStorage );
         load();
         firstNameForm();
         lastNameForm();
@@ -92,8 +92,8 @@ async function showCart() {
                 //console.log( 'price? : ', formattedPrice )
             };
             htmltxt += `<article class="cart_item" data-id="${ el.productId }" data-color="${ el.color }">
-                        <div class="cart_img">
-                            <img src="${ el.image }" alt="${ el.alt }">
+                        <div class="cart_item_img">
+                            <img class="cartImg" src="${ el.image }" alt="${ el.alt }">
                         </div>
                         <div class="cart_item_content">
                             <div class="cart_item_content_info">
@@ -375,13 +375,11 @@ function emailForm() {
 function sendFormToServer( event ) {
     let form = document.querySelector( '.cart_form_fill' );
     event.preventDefault();
-    console.log( 'form :', form );
     let valid = form.checkValidity();
-    console.log( 'validity', valid );
     if ( valid == true ) {
-        console.log( 'validity', valid );
+        //console.log( 'validity', valid );
         const formOrder = requestForm();
-        console.log( 'order', formOrder );
+        //console.log( 'order', formOrder );
         fetch( "http://localhost:3000/api/teddies/order",
             {
                 method: "POST",
@@ -393,7 +391,7 @@ function sendFormToServer( event ) {
             } )
             .then( function ( res ) {
                 if ( res.ok ) {
-                    console.log( 'res', res )
+                    //console.log( 'res', res )
                     return res.json();
                 }
             } )
@@ -439,9 +437,7 @@ function requestStrings() {
     const getStrings = [];
     for ( let item of cartItems ) {
         const id = item.productId;
-        console.log( 'product string : ', id );
         getStrings.push( id );
-        //console.log( 'products ids Array : ', getStrings );
     };
     return getStrings;
 };

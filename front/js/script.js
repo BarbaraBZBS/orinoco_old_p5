@@ -13,7 +13,7 @@ async function load() {
     for ( let product of products ) {
         showProducts( product )
     }
-}
+};
 
 /**
  * Calling API to get products info
@@ -28,7 +28,7 @@ function getTeddies() {
             }
         } )
         .then( function ( products ) {
-            console.log( 'teddies :', products );
+            //console.log( 'teddies :', products );
             return products
         } )
         .catch( function ( err ) {
@@ -36,19 +36,19 @@ function getTeddies() {
             document.querySelector( 'div.presentation' ).classList.add( 'serverError' );
             document.querySelector( 'div.presentation' ).textContent = "Oups... Il y a une erreur de serveur !";
         } )
-}
+};
 
 /**
  * displaying HTML content for each card
  * @param {object} product API retrieved product to display 
  */
 function showProducts( product ) {
-    console.log( 'products :', product )
     const itemsSection = document.getElementById( 'items' );
     const showList = document.createElement( 'li' );
     const showAnchor = document.createElement( 'a' );
     showAnchor.classList.add( 'anchor' );
     const showArticle = document.createElement( 'article' );
+    //const imageDiv = document.createElement( 'div' );
     const showImage = document.createElement( 'img' );
     const showHeading = document.createElement( 'h3' );
     showAnchor.setAttribute( 'href', './product.html?id=' + product._id );
@@ -58,9 +58,9 @@ function showProducts( product ) {
     showHeading.classList.add( 'productName' );
     showImage.classList.add( 'listImage' );
     showImage.classList.add( 'scale' );
-    showAnchor.appendChild( showArticle );
     showArticle.appendChild( showHeading );
-    showArticle.appendChild( showImage );
-    showList.appendChild( showAnchor );
+    showArticle.appendChild( showAnchor );
+    showAnchor.appendChild( showImage );
+    showList.appendChild( showArticle );
     itemsSection.appendChild( showList );
-}
+};
