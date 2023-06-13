@@ -100,7 +100,7 @@ async function showCart() {
                                 <h2 class="item_name">${ el.name }</h2>
                                 <p class="item_color">${ el.color }</p>
                                 <p class="item_tot_price">${ formattedTotal }</p>
-                                <p class="item_sing_price">(prix unitaire : ${ formattedPrice })</p>
+                                <p class="item_sing_price">(${ formattedPrice } la pièce)</p>
                             </div>
                             <div class="cart_item_content_settings">
                                 <div class="cart_item_content_settings_quantity">
@@ -110,7 +110,7 @@ async function showCart() {
                                     <p class="errorQuantity"></p>
                                 </div>
                                 <div class="cart_item_content_settings_delete">
-                                    <button class="delete_item">Supprimer du panier</button>
+                                    <button class="delete_item">Supprimer</button>
                                 </div>
                             </div>
                         </div>
@@ -272,7 +272,7 @@ function firstNameForm() {
             document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
         }
         else {
-            document.getElementById( 'firstNameErrorMsg' ).textContent = "Veuillez renseigner votre prénom... (p. ex. Gwen)";
+            document.getElementById( 'firstNameErrorMsg' ).textContent = "Veuillez renseigner votre prénom... (ex. Gwen)";
             firstName.style.border = 'solid thin red';
             document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
         }
@@ -294,7 +294,7 @@ function lastNameForm() {
             document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
         }
         else {
-            document.getElementById( 'lastNameErrorMsg' ).textContent = "Veuillez renseigner votre nom... (p. ex. Dupont)";
+            document.getElementById( 'lastNameErrorMsg' ).textContent = "Veuillez renseigner votre nom... (ex. Dupont)";
             lastName.style.border = 'solid thin red';
             document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
         }
@@ -316,7 +316,7 @@ function addressForm() {
             document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
         }
         else {
-            document.getElementById( 'addressErrorMsg' ).textContent = "Veuillez renseigner votre adresse... (p. ex. 10 rue des prés)";
+            document.getElementById( 'addressErrorMsg' ).textContent = "Veuillez renseigner votre adresse... (ex. 10 rue des prés)";
             address.style.border = 'solid thin red';
             document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
         }
@@ -338,7 +338,7 @@ function cityForm() {
             document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
         }
         else {
-            document.getElementById( 'cityErrorMsg' ).textContent = "Veuillez renseigner votre ville... (p. ex. Grenoble)";
+            document.getElementById( 'cityErrorMsg' ).textContent = "Veuillez renseigner votre ville... (ex. Grenoble)";
             city.style.border = 'solid thin red';
             document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
 
@@ -361,7 +361,7 @@ function emailForm() {
             document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
         }
         else {
-            document.getElementById( 'emailErrorMsg' ).textContent = "Veuillez renseigner une adresse email valide... (p. ex. j.vincent@google.org)";
+            document.getElementById( 'emailErrorMsg' ).textContent = "Veuillez renseigner une adresse email valide... (ex. j.vincent@google.org)";
             email.style.border = 'solid thin red';
             document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
         }

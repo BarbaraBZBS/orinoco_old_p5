@@ -46,15 +46,15 @@
                 <section id="cart_items">
                     <!--
                     <article class="cart_item" data-id="${ el.productId }" data-color="${ el.color }">
-                        <div class="cart_img">
-                            <img src="${ el.image }" alt="${ el.alt }">
+                        <div class="cart_item_img">
+                            <img class="cartImg" src="${ el.image }" alt="${ el.alt }">
                         </div>
                         <div class="cart_item_content">
                             <div class="cart_item_content_info">
                                 <h2 class="item_name">${ el.name }</h2>
                                 <p class="item_color">${ el.color }</p>
                                 <p class="item_tot_price">${ formattedTotal }</p>
-                                <p class="item_sing_price">(prix unitaire : ${ formattedPrice })</p>
+                                <p class="item_sing_price">(${ formattedPrice } la pièce)</p>
                             </div>
                             <div class="cart_item_content_settings">
                                 <div class="cart_item_content_settings_quantity">
@@ -64,7 +64,7 @@
                                     <p class="errorQuantity"></p>
                                 </div>
                                 <div class="cart_item_content_settings_delete">
-                                    <button class="delete_item">Supprimer du panier</button>
+                                    <button class="delete_item">Supprimer</button>
                                 </div>
                             </div>
                         </div>
@@ -113,9 +113,25 @@
         </main>
 
         <footer class="bot-banner">
+
             <div class="bot-logo">
                 <img src="../images/orinocologofoot.png" alt="logo2">
+            </div>
+            <div class="contact">
                 <div>
+                    <p>526 rue de la plume <br>75020 Paris 20e</p>
+                </div>
+                <div>
+                    <p>Téléphone : 0021 22 412 697 0089</p>
+                </div>
+                <div>
+                    <p>Email : supportOrinoco@name.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© Copyright 2021 - 2042 | Orinoco | All Rights Reserved | Powered by ╖ </p>
+            </div>
+
         </footer>
 
     </div>
