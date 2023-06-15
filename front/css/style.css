@@ -28,6 +28,8 @@ a {
 main {
     min-height: 75vh;
     height: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 #main-wrapper {
@@ -52,10 +54,43 @@ main {
     border-radius: 15px;
 }
 
-.presentation {
+.navigation {
+    margin: 18px 0 50px 0;
+}
+
+.navigation ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    /* margin: 0 15px 15px 15px ; */
+    padding: 0 25px 20px 25px;
+}
+
+.navigation li {
+    list-style: none;
+}
+
+.navigation a {
+    color: #8F5BFE;
+    font-size: clamp(20px, 1.5vw, 24px);
+    font-weight: 500;
+    text-transform: uppercase;
+    margin: 0 40px;
+}
+
+.homePageLink:hover, .cartPageLink:hover {
+    border-bottom: solid 2px #8F5BFE;
+}
+
+.presentation_i {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     text-align: center;
     justify-content: center;
     align-items: center;
+    flex: 0.5 0.5 auto;
+    margin: 0 20px;
 }
 
 .serverError {
@@ -66,20 +101,9 @@ main {
     padding-top: 100px;
 }
 
-.cartEmpty {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 30px;
-    padding-top: 100px;
-}
-
 .errMsg {
     color: crimson;
 }
-
-/* .msgGreen {
-    
-} */
 
 .welcome, .intro, .title, .info, .pick, .mycart, .instruction {
     align-items: center;
@@ -91,14 +115,14 @@ main {
 }
 
 .welcome, .mycart  {
-    font-size: 23px;
+    font-size: clamp(23px, 1.5vw, 34px);
     text-transform: uppercase;
     padding-top: 15px;
     padding-bottom: 10px;
 }
 
 .intro {
-    font-size: 22px;
+    font-size: clamp(22px, 1.5vw, 32px);
 }
 
 b {
@@ -106,7 +130,7 @@ b {
 }
 
 .pick, .instruction {
-    font-size: 20px;
+    font-size: clamp(20px, 1.5vw, 30px);
     font-weight: bold;
     padding-bottom: 30px;
 }
@@ -119,30 +143,38 @@ b {
 
 .itemsList {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     text-align: center;
-    width: 360px;
     list-style: none;
     padding: 0;
+    flex-wrap: wrap;
+}
+
+.list {
+    margin: 0 25px;
 }
 
 .itemsList article {
-    margin-bottom: 48px;
-    margin-top: 10px;
+    margin: 10px 0 48px;
+}
+
+.anchor {
+    display: flex;
+    width: auto;
 }
 
 .itemsList h3 {
-    font-size: 20px;
+    font-size: clamp(20px, 1.5vw, 27px);
 }
 
 .listImage {
-    width: 310px;
-    display: block;
-    margin: auto;
+    width: clamp(310px, 30vw, 460px);
+    max-height: 296px;
+    object-fit: cover;
     margin-top: 10px;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-;
 }
 
 .bot-banner {
@@ -167,12 +199,12 @@ b {
 
 .contact {
     text-align: center;
-    font-size: 17px;
+    font-size: clamp(17px, 1.5vw, 20px);
 }
 
 .copyright {
     margin: 11px;
-    font-size: 15px;
+    font-size: clamp(15px, 1.5vw, 19px);
     text-align: center;
     
 }
@@ -211,6 +243,18 @@ b {
 
 /* product page */
 
+.presentation_p {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+}
+
 @keyframes fadeout{
     0%{opacity:1;visibility:visible;}
     99%{opacity:0;}
@@ -221,52 +265,33 @@ b {
     visibility:hidden;
 }
 
-/* @keyframes fadein{
-    0%{opacity:0;visibility:visible;}
-    100%{opacity:1;}
-}
-.fadein {
-    animation:fadein 1s linear;
-} */
-
-.navigation ul {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    /* margin: 0 15px 15px 15px ; */
-    padding: 0 25px 20px 25px;
-}
-
-.navigation li {
-    list-style: none;
-}
-
-.navigation a {
-    color: #8F5BFE;
-    font-size: 20px;
-    font-weight: 500;
-    text-transform: uppercase;
-    margin: 0 40px;
-}
-
 .title {
-    font-size: 23px;
+    font-size: clamp(23px, 1.5vw, 29px);
     padding-top: 15px;
     padding-bottom: 20px;
     text-transform: uppercase;
 }
 
 .info {
-    font-size: 20px;
+    font-size: clamp(20px, 1.5vw, 25px);
     padding: 0 10px 15px 10px;
 }
 
-.navigation {
-    margin: 18px 0 40px 0;
+.articleSection {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product_img {
+    flex: 1 1 366px;
+}
+
+.product_content {
+    flex: 1 1 450px;
 }
 
 .prodImg {
-    width: 310px;
+    width: clamp(310px, 30vw, 460px);
     display: block;
     margin: auto;
     border-radius: 10px;
@@ -280,10 +305,10 @@ b {
 
 #title {
     text-align: center;
-    font-size: 21px;
+    font-size: clamp(21px, 1.5vw, 27px);
 }
 #price {
-    font-size: 19px;
+    font-size: clamp(19px, 1.5vw, 26px);
 }
 
 .product_content_settings_option, .product_content_settings_quantity, .product_content_addButton  {
@@ -295,12 +320,12 @@ select {
     margin-top: 12px;
     background: bisque;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: clamp(16px, 1.5vw, 23px);
 }
 input {
     background: bisque;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: clamp(16px, 1.5vw, 23px);
     width: 50px;
 }
 
@@ -312,39 +337,58 @@ input {
     background-color: #8F5BFE;
     border-radius: 10px;
     border: none;
-    font-size: 16px;
+    font-size: clamp(17px, 1.5vw, 25px);
+}
+
+.btn:hover {
+   box-shadow: 0 0 9px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.425);
 }
 
 .btnBack {
-    margin-top: 0;
+    margin-top: 30px;
     margin-bottom: 45px;
+    background-color: #f3b257;
+}
+
+.btnBack:active {
+    color: #8F5BFE;
 }
 
 .backHome {
-    color: white;
+    color: black;
+    font-weight: 500;
 }
 
 .product_content_name-price p {
-    font-size: 19px;
+    font-size: clamp(19px, 1.5vw, 25px);
 }
 
 #description {
-    font-size: 17px;
+    font-size: clamp(17px, 1.5vw, 23px);
 }
 
 label {
-    font-size: 18px;
+    font-size: clamp(18px, 1.5vw, 24px);
 }
 
 #msg {
     text-align: center;
     display: block;
+    font-size: clamp(16px, 1.5vw, 22px);
 }
 
 #product_main_section, #cart_main_section {
     text-align: center;
-    justify-content: center;
-    align-items: center;    
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#totPrice {
+    font-size: clamp(16px, 1.5vw, 22px);
 }
 
 
@@ -462,6 +506,14 @@ label {
     margin-bottom: 30px;
     font-size: 19px;
 }
+
+.cartEmpty {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 30px;
+    padding-top: 100px;
+}
+
 
 /*   confirmation page */
 

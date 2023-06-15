@@ -45,6 +45,7 @@ function getTeddies() {
 function showProducts( product ) {
     const itemsSection = document.getElementById( 'items' );
     const showList = document.createElement( 'li' );
+    showList.classList.add( 'list' );
     const showAnchor = document.createElement( 'a' );
     showAnchor.classList.add( 'anchor' );
     const showArticle = document.createElement( 'article' );
