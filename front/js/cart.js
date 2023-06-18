@@ -8,7 +8,6 @@
         localStorage.clear();
         document.getElementById( 'cart_main_section' ).classList.add( 'cartEmpty' );
         document.getElementById( 'cart_main_section' ).textContent = "Votre panier est vide, sélectionnez un ours depuis la page d'accueil et ajoutez le à votre panier.";
-        return false
     }
     else {
         //console.log( 'local storage loaded', localStorage );
@@ -18,7 +17,7 @@
         addressForm();
         cityForm();
         emailForm();
-        return true
+        // validAll()
     }
 } )();
 
@@ -262,13 +261,22 @@ function formatPrice( price ) {
 */
 function firstNameForm() {
     const firstName = document.getElementById( 'firstName' );
+    const lastName = document.getElementById( 'lastName' );
+    const address = document.getElementById( 'address' );
+    const city = document.getElementById( 'city' );
+    const email = document.getElementById( 'email' );
     firstName.addEventListener( 'change', function ( event ) {
         if ( /^[A-Z][A-Za-z -ïîëéèùûêâôöçäü]{1,45}$/.test( event.target.value ) ) {
             document.getElementById( 'firstNameErrorMsg' ).textContent = "";
             firstName.style.border = 'solid medium green';
-            document.getElementById( 'order' ).removeAttribute( 'disabled' );
+            if ( lastName.value != "" && address.value != "" &&
+                city.value != "" && email.value != "" ) {
+                document.getElementById( 'order' ).removeAttribute( 'disabled' );
+            }
         }
-        else if ( event.target.value == '' ) {
+        else if ( event.target.value == "" ) {
+            document.getElementById( 'firstNameErrorMsg' ).textContent = "";
+            firstName.style.border = 'currentColor solid 2px';
             document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
         }
         else {
@@ -283,14 +291,23 @@ function firstNameForm() {
  * lastName field validation
  */
 function lastNameForm() {
+    const firstName = document.getElementById( 'firstName' );
     const lastName = document.getElementById( 'lastName' );
+    const address = document.getElementById( 'address' );
+    const city = document.getElementById( 'city' );
+    const email = document.getElementById( 'email' );
     lastName.addEventListener( 'change', function ( event ) {
         if ( /^[A-Z][A-Za-z -ïîëéèùûêâôöçäü]{1,45}$/.test( event.target.value ) ) {
             document.getElementById( 'lastNameErrorMsg' ).textContent = "";
             lastName.style.border = 'solid medium green';
-            document.getElementById( 'order' ).removeAttribute( 'disabled' );
+            if ( firstName.value != "" && address.value != "" &&
+                city.value != "" && email.value != "" ) {
+                document.getElementById( 'order' ).disabled = false;
+            }
         }
         else if ( event.target.value == "" ) {
+            document.getElementById( 'lastNameErrorMsg' ).textContent = "";
+            lastName.style.border = 'currentColor solid 2px';
             document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
         }
         else {
@@ -305,14 +322,23 @@ function lastNameForm() {
  * address field validation
  */
 function addressForm() {
-    let address = document.getElementById( 'address' );
+    const firstName = document.getElementById( 'firstName' );
+    const lastName = document.getElementById( 'lastName' );
+    const address = document.getElementById( 'address' );
+    const city = document.getElementById( 'city' );
+    const email = document.getElementById( 'email' );
     address.addEventListener( 'change', function ( event ) {
-        if ( /^[a-zA-Z0-9\s,'-.ç _àçïîëéêèûâùôöäü]*$/.test( event.target.value ) ) {
+        if ( /^[a-zA-Z0-9\s,'-.ç _àçïîëéêèûâùôöäü]*^.{6,}$/.test( event.target.value ) ) {
             document.getElementById( 'addressErrorMsg' ).textContent = "";
             address.style.border = 'solid medium green';
-            document.getElementById( 'order' ).removeAttribute( 'disabled' );
+            if ( firstName.value != "" && lastName.value != "" &&
+                city.value != "" && email.value != "" ) {
+                document.getElementById( 'order' ).disabled = false;
+            }
         }
         else if ( event.target.value == "" ) {
+            document.getElementById( 'addressErrorMsg' ).textContent = "";
+            address.style.border = 'currentColor solid 2px';
             document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
         }
         else {
@@ -327,21 +353,29 @@ function addressForm() {
  * city field validation
  */
 function cityForm() {
-    let city = document.getElementById( 'city' );
+    const firstName = document.getElementById( 'firstName' );
+    const lastName = document.getElementById( 'lastName' );
+    const address = document.getElementById( 'address' );
+    const city = document.getElementById( 'city' );
+    const email = document.getElementById( 'email' );
     city.addEventListener( 'change', function ( event ) {
         if ( /^[A-Z][A-Za-z\s'-. _àçïîëéêèûâùôöçäü]*$/.test( event.target.value ) ) {
             document.getElementById( 'cityErrorMsg' ).textContent = "";
             city.style.border = 'solid medium green';
-            document.getElementById( 'order' ).removeAttribute( 'disabled' );
+            if ( firstName.value != "" && lastName.value != "" && address.value != "" &&
+                email.value != "" ) {
+                document.getElementById( 'order' ).disabled = false;
+            }
         }
         else if ( event.target.value == "" ) {
+            document.getElementById( 'cityErrorMsg' ).textContent = "";
+            city.style.border = 'currentColor solid 2px';
             document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
         }
         else {
             document.getElementById( 'cityErrorMsg' ).textContent = "Veuillez renseigner votre ville... (ex. Grenoble)";
             city.style.border = 'solid thin red';
             document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
-
         }
     } )
 };
@@ -350,14 +384,23 @@ function cityForm() {
  * email field validation
  */
 function emailForm() {
-    let email = document.getElementById( 'email' );
+    const firstName = document.getElementById( 'firstName' );
+    const lastName = document.getElementById( 'lastName' );
+    const address = document.getElementById( 'address' );
+    const city = document.getElementById( 'city' );
+    const email = document.getElementById( 'email' );
     email.addEventListener( 'change', function ( event ) {
         if ( /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test( event.target.value ) ) {
             document.getElementById( 'emailErrorMsg' ).textContent = "";
             email.style.border = 'solid medium green';
-            document.getElementById( 'order' ).removeAttribute( 'disabled' );
+            if ( firstName.value != "" && lastName.value != "" && address.value != "" &&
+                city.value != "" ) {
+                document.getElementById( 'order' ).disabled = false;
+            }
         }
         else if ( event.target.value == "" ) {
+            document.getElementById( 'emailErrorMsg' ).textContent = "";
+            email.style.border = 'currentColor solid 2px';
             document.getElementById( 'order' ).setAttribute( 'disabled', 'true' );
         }
         else {
@@ -367,6 +410,7 @@ function emailForm() {
         }
     } )
 };
+
 
 /**
  * sending form to server
@@ -445,4 +489,5 @@ function requestStrings() {
 /**
  * form event listener
  */
+
 document.querySelector( '.cart_form_fill' ).addEventListener( 'submit', sendFormToServer );

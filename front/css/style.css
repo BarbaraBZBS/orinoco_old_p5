@@ -74,7 +74,7 @@ main {
     font-size: clamp(20px, 1.5vw, 24px);
     font-weight: 500;
     text-transform: uppercase;
-    margin: 0 40px;
+    margin: 0 5px;
     border-radius: 10px;
 }
 
@@ -95,7 +95,7 @@ main {
 
 .serverError {
     color: indianred;
-    font-size: 24px;
+    font-size: clamp(24px, 1.5vw, 28px);
     font-weight: bold;
     margin: 30px;
     padding-top: 100px;
@@ -109,8 +109,8 @@ main {
     align-items: center;
     text-align: center;
     margin-bottom: 25px;
-    margin-left: 17px;
-    margin-right: 17px;
+    margin-left: 19px;
+    margin-right: 19px;
     color: rgb(37, 15, 112) ;
 }
 
@@ -236,7 +236,7 @@ b {
 }
 
 .homePageLink, .cartPageLink {
-    padding: 0 5px 15px 5px;
+    padding: 0 5px 15px;
 }
 .active {
     border-bottom: #E38C1E double 4px;
@@ -326,7 +326,7 @@ select {
 }
 input {
     background: bisque;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: clamp(16px, 1.5vw, 23px);
     width: 50px;
 }
@@ -386,7 +386,7 @@ label {
 #product_main_section, #cart_main_section {
     text-align: center;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 #totPrice {
@@ -470,8 +470,16 @@ label {
     font-size: clamp(15px, 1.5vw, 21px);
 }
 
+.delete_item:hover {
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.3);    
+}
+
+.delete_item:active {
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.425);
+}
+
 .cart_price p {
-    font-size: 20px;
+    font-size: clamp(20px, 1.5vw, 24px);
     margin: 40px 25px;
     line-height: 30px;
 }
@@ -490,30 +498,31 @@ label {
 }
 
 .cart_form h3 {
-    font-size: 20px;
-    margin-bottom: 38px;
+    font-size: clamp(20px, 1.5vw, 25px);
+    margin: 50px 0 42px;
     text-decoration: underline;
 }
 
 .cart_form_fill_field {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    gap: 5px;
+    justify-content: center;
     align-items: center;
 }
 
 .cart_form_fill_field label {
-    font-size: 19px;
+    font-size: clamp(19px, 1.5vw, 25px);
     font-weight: 500;
 }
 
 .cart_form_fill_field input {
-    width: 66%;
+    width: clamp(248px, 20vw, 340px);
     margin: 0px 10px;
-    font-size: 19px;
+    font-size: clamp(19px, 1.5vw, 25px);
 }
 
-.cart_form_fill_field p {
-    font-size: 18px;
+.formError p{
+    font-size: clamp(18px, 1.5vw, 26px);
     color: indianred;
     margin: 18px 25px;
     font-weight: 500;
@@ -522,6 +531,7 @@ label {
 .cart_form_fill_submit {
     margin: 25px 0 40px 0;
 }
+
 .cart_form_fill_submit input {
     padding: 12px 18px;
     width: auto;
@@ -529,30 +539,44 @@ label {
     border: #8F5BFE;
     color: white;
     border-radius: 30px;
-    margin-bottom: 30px;
-    font-size: 19px;
+    margin: 25px  0 30px;
+    font-size: clamp(19px, 1.5vw, 25px);
+}
+
+.cart_form_fill_submit input:disabled {
+    background-color: darkgrey;
+    color: black;
+}
+
+.cart_form_fill_submit input:hover:enabled {
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.3);    
+    cursor: pointer;
+}
+
+.cart_form_fill_submit input:active:enabled {
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.425);
+    cursor: pointer;
 }
 
 .cartEmpty {
-    font-size: 24px;
+    font-size: clamp(24px, 1.5vw, 29px);
     font-weight: bold;
     margin: 30px;
     padding-top: 100px;
 }
 
-
 /*   confirmation page */
 
 .confirm_title {
     text-align: center;
-    font-size: 28px;
+    font-size: clamp(28px, 2vw, 33px);
     margin: 36px;
 }
 
 .confirm_order {
     text-align: center;
     margin: 30px;
-    font-size: 22px;
+    font-size: clamp(22px, 2vw, 27px);
     font-weight: 500;
 }
 
@@ -562,6 +586,17 @@ label {
 
 .greetings {
     margin-top: 45px;
-    font-size: 25px;
+    font-size: clamp(25px, 2vw, 30px);
     font-weight: 600;
 }
+
+/* some media queries */
+
+@media screen and (min-width: 800px) {
+  .cart_form_fill_field {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+}
+
+
