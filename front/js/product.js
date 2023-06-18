@@ -246,3 +246,31 @@ document.getElementById( 'addToCart' ).addEventListener( 'click', function () {
         fillCart();
     }
 } );
+
+/**
+ * calling scroll function on scroll
+ */
+window.onscroll = function () {
+    scroll()
+};
+
+/**
+ * make back to top button appear when scrolling
+ */
+function scroll() {
+    const btn = document.getElementById( 'btnTop' );
+    if ( document.body.scrollTop > 200 || document.documentElement.scrollTop > 200 ) {
+        btn.classList.add( 'show' );
+    }
+    else {
+        btn.classList.remove( 'show' );
+    }
+};
+
+/**
+ * back to top button event listener
+ */
+document.getElementById( 'btnTop' ).addEventListener( 'click', function ( event ) {
+    event.preventDefault();
+    window.scrollTo( { top: 0, behavior: 'smooth' } );
+} );

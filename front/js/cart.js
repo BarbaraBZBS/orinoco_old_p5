@@ -269,8 +269,11 @@ function firstNameForm() {
         if ( /^[A-Z][A-Za-z -ïîëéèùûêâôöçäü]{1,45}$/.test( event.target.value ) ) {
             document.getElementById( 'firstNameErrorMsg' ).textContent = "";
             firstName.style.border = 'solid medium green';
-            if ( lastName.value != "" && address.value != "" &&
-                city.value != "" && email.value != "" ) {
+            if ( lastName.style.border == 'medium solid green' &&
+                address.style.border == 'medium solid green' &&
+                city.style.border == 'medium solid green' &&
+                email.style.border == 'medium solid green' ) {
+                console.log( 'style:', firstName.style.border )
                 document.getElementById( 'order' ).removeAttribute( 'disabled' );
             }
         }
@@ -300,8 +303,10 @@ function lastNameForm() {
         if ( /^[A-Z][A-Za-z -ïîëéèùûêâôöçäü]{1,45}$/.test( event.target.value ) ) {
             document.getElementById( 'lastNameErrorMsg' ).textContent = "";
             lastName.style.border = 'solid medium green';
-            if ( firstName.value != "" && address.value != "" &&
-                city.value != "" && email.value != "" ) {
+            if ( firstName.style.border == 'medium solid green' &&
+                address.style.border == 'medium solid green' &&
+                city.style.border == 'medium solid green' &&
+                email.style.border == 'medium solid green' ) {
                 document.getElementById( 'order' ).disabled = false;
             }
         }
@@ -331,8 +336,10 @@ function addressForm() {
         if ( /^[a-zA-Z0-9\s,'-.ç _àçïîëéêèûâùôöäü]*^.{6,}$/.test( event.target.value ) ) {
             document.getElementById( 'addressErrorMsg' ).textContent = "";
             address.style.border = 'solid medium green';
-            if ( firstName.value != "" && lastName.value != "" &&
-                city.value != "" && email.value != "" ) {
+            if ( lastName.style.border === 'medium solid green' &&
+                firstName.style.border === 'medium solid green' &&
+                city.style.border === 'medium solid green' &&
+                email.style.border === 'medium solid green' ) {
                 document.getElementById( 'order' ).disabled = false;
             }
         }
@@ -362,8 +369,10 @@ function cityForm() {
         if ( /^[A-Z][A-Za-z\s'-. _àçïîëéêèûâùôöçäü]*$/.test( event.target.value ) ) {
             document.getElementById( 'cityErrorMsg' ).textContent = "";
             city.style.border = 'solid medium green';
-            if ( firstName.value != "" && lastName.value != "" && address.value != "" &&
-                email.value != "" ) {
+            if ( lastName.style.border == 'medium solid green' &&
+                address.style.border == 'medium solid green' &&
+                firstName.style.border == 'medium solid green' &&
+                email.style.border == 'medium solid green' ) {
                 document.getElementById( 'order' ).disabled = false;
             }
         }
@@ -393,8 +402,10 @@ function emailForm() {
         if ( /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test( event.target.value ) ) {
             document.getElementById( 'emailErrorMsg' ).textContent = "";
             email.style.border = 'solid medium green';
-            if ( firstName.value != "" && lastName.value != "" && address.value != "" &&
-                city.value != "" ) {
+            if ( lastName.style.border == 'medium solid green' &&
+                address.style.border == 'medium solid green' &&
+                city.style.border == 'medium solid green' &&
+                firstName.style.border == 'medium solid green' ) {
                 document.getElementById( 'order' ).disabled = false;
             }
         }
@@ -489,5 +500,32 @@ function requestStrings() {
 /**
  * form event listener
  */
-
 document.querySelector( '.cart_form_fill' ).addEventListener( 'submit', sendFormToServer );
+
+/**
+ * calling scroll function on scroll
+ */
+window.onscroll = function () {
+    scroll()
+};
+
+/**
+ * make back to top button appear when scrolling
+ */
+function scroll() {
+    const btn = document.getElementById( 'btnTop' );
+    if ( document.body.scrollTop > 200 || document.documentElement.scrollTop > 200 ) {
+        btn.classList.add( 'show' );
+    }
+    else {
+        btn.classList.remove( 'show' );
+    }
+};
+
+/**
+ * back to top button event listener
+ */
+document.getElementById( 'btnTop' ).addEventListener( 'click', function ( event ) {
+    event.preventDefault();
+    window.scrollTo( { top: 0, behavior: 'smooth' } );
+} );

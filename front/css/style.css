@@ -32,6 +32,125 @@ main {
     flex-direction: column;
 }
 
+/*loading spinner*/
+.loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    animation: show 0.3s 1.1s forwards;
+}
+
+.loader {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.loader-a, .loader-b {
+  position: absolute;
+  border: 4px solid #8F5BFE;
+  opacity: 1;
+  border-radius: 50%;
+  animation: ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.loader-b {
+  animation-delay: -0.5s;
+}
+
+.load-wrapper {
+    opacity: 0;
+    animation: show 0.4s 1.5s forwards reverse;
+}
+
+@keyframes ripple {
+    0% {
+        top: 36px;
+        left: 36px;
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+    4.9% {
+        top: 36px;
+        left: 36px;
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+    5% {
+        top: 36px;
+        left: 36px;
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        top: 0px;
+        left: 0px;
+        width: 72px;
+        height: 72px;
+        opacity: 0;
+    }
+}
+
+@keyframes show {
+    from {
+        visibility: visible;
+        opacity: 1;
+    }
+    to {
+        visibility: hidden;
+        opacity: 0;
+    }
+}
+
+/*back to top button*/
+#btnTop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FF9800;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color .3s, 
+    opacity .5s, visibility .5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+}
+
+#btnTop i{
+    font-size: xx-large;
+    color: #fff;
+}
+
+#btnTop i:hover {
+    color: #f3b257;
+}
+#btnTop:hover {
+  cursor: pointer;
+  background-color: #333;
+}
+
+#btnTop:active {
+  background-color: #555;
+}
+
+#btnTop.show {
+  opacity: 1;
+  visibility: visible;
+}
+
 #main-wrapper {
     padding: 0;
     margin: 0;
@@ -87,7 +206,7 @@ main {
     flex-direction: column;
     flex-wrap: wrap;
     text-align: center;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     flex: 0.5 0.5 auto;
     margin: 0 20px;
@@ -95,7 +214,7 @@ main {
 
 .serverError {
     color: indianred;
-    font-size: clamp(24px, 1.5vw, 28px);
+    font-size: clamp(24px, 2.5vw, 28px);
     font-weight: bold;
     margin: 30px;
     padding-top: 100px;
@@ -324,6 +443,7 @@ select {
     border-radius: 5px;
     font-size: clamp(16px, 1.5vw, 23px);
 }
+
 input {
     background: bisque;
     border-radius: 8px;
@@ -352,17 +472,17 @@ input {
 
 .btnBack {
     margin-top: 30px;
-    margin-bottom: 45px;
-    background-color: #f3b257;
-}
-
-.btnBack:active {
-    color: #8F5BFE;
+    margin-bottom: 55px;
 }
 
 .backHome {
     color: black;
     font-weight: 500;
+    background-color: #f3b257;
+}
+
+.backHome:active {
+    color: #8F5BFE;
 }
 
 .product_content_name-price p {

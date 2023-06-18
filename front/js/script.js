@@ -33,8 +33,8 @@ function getTeddies() {
         } )
         .catch( function ( err ) {
             console.log( 'error :', err );
-            document.querySelector( 'div.presentation' ).classList.add( 'serverError' );
-            document.querySelector( 'div.presentation' ).textContent = "Oups... Il y a une erreur de serveur !";
+            document.querySelector( 'section.presentation_i' ).classList.add( 'serverError' );
+            document.querySelector( 'section.presentation_i' ).textContent = "Oups... Il y a une erreur de serveur !";
         } )
 };
 
@@ -65,3 +65,31 @@ function showProducts( product ) {
     showList.appendChild( showArticle );
     itemsSection.appendChild( showList );
 };
+
+/**
+ * calling scroll function on scroll
+ */
+window.onscroll = function () {
+    scroll()
+};
+
+/**
+ * make back to top button appear when scrolling
+ */
+function scroll() {
+    const btn = document.getElementById( 'btnTop' );
+    if ( document.body.scrollTop > 200 || document.documentElement.scrollTop > 200 ) {
+        btn.classList.add( 'show' );
+    }
+    else {
+        btn.classList.remove( 'show' );
+    }
+};
+
+/**
+ * back to top button event listener
+ */
+document.getElementById( 'btnTop' ).addEventListener( 'click', function ( event ) {
+    event.preventDefault();
+    window.scrollTo( { top: 0, behavior: 'smooth' } );
+} );
